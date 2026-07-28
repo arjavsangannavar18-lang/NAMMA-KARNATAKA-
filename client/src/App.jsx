@@ -8,24 +8,9 @@ import MarketPricesPage from './pages/MarketPricesPage';
 import JobsPage from './pages/JobsPage';
 import EmergencyPage from './pages/EmergencyPage';
 import DistrictsPage from './pages/DistrictsPage';
+import SettingsPage from './pages/SettingsPage';
 import NotFoundPage from './pages/NotFoundPage';
-
 function App() {
-  return (
-    <Routes>
-      <Route path="/" element={<Layout />}>
-        <Route index element={<HomePage />} />
-        <Route path="weather" element={<WeatherPage />} />
-        <Route path="transport" element={<TransportPage />} />
-        <Route path="news" element={<NewsPage />} />
-        <Route path="market-prices" element={<MarketPricesPage />} />
-        <Route path="jobs" element={<JobsPage />} />
-        <Route path="emergency" element={<EmergencyPage />} />
-        <Route path="districts" element={<DistrictsPage />} />
-        <Route path="*" element={<NotFoundPage />} />
-      </Route>
-    </Routes>
-  );
+  return (<Routes><Route path="/" element={<Layout />}><Route index element={<HomePage />} /><Route path="weather" element={<WeatherPage />} /><Route path="transport" element={<TransportPage />} /><Route path="news" element={<NewsPage />} /><Route path="market-prices" element={<MarketPricesPage />} /><Route path="jobs" element={<JobsPage />} /><Route path="emergency" element={<EmergencyPage />} /><Route path="districts" element={<DistrictsPage />} /><Route path="settings" element={<SettingsPage />} /><Route path="*" element={<NotFoundPage />} /></Route></Routes>);
 }
-
 export default App;

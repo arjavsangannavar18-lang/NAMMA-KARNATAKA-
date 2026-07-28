@@ -1,25 +1,3 @@
-const DISTRICTS = [
-  'Bagalkot', 'Ballari', 'Belagavi', 'Bengaluru Rural', 'Bengaluru Urban',
-  'Bidar', 'Chamarajanagar', 'Chikkaballapur', 'Chikkamagaluru', 'Chitradurga',
-  'Dakshina Kannada', 'Davanagere', 'Dharwad', 'Gadag', 'Hassan',
-  'Haveri', 'Kalaburagi', 'Kodagu', 'Kolar', 'Koppal',
-  'Mandya', 'Mysuru', 'Raichur', 'Ramanagara', 'Shivamogga',
-  'Tumakuru', 'Udupi', 'Uttara Kannada', 'Vijayanagara', 'Vijayapura', 'Yadgir',
-];
-
-export default function DistrictsPage() {
-  return (
-    <div className="space-y-6">
-      <h1 className="section-title">🗺 Karnataka Districts</h1>
-      <p className="text-gray-600 -mt-4">All 31 districts of Karnataka — detailed information coming soon.</p>
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        {DISTRICTS.map((district) => (
-          <div key={district} className="card p-4 text-center hover:border-[var(--color-primary)] border-2 border-transparent transition-all cursor-pointer">
-            <span className="text-2xl block mb-1">📍</span>
-            <h3 className="font-semibold">{district}</h3>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
+import { useLanguage } from '../context/LanguageContext';
+const D=[{kn:'ಬಾಗಲಕೋಟೆ',en:'Bagalkot'},{kn:'ಬಳ್ಳಾರಿ',en:'Ballari'},{kn:'ಬೆಳಗಾವಿ',en:'Belagavi'},{kn:'ಬೆಂಗಳೂರು ಗ್ರಾಮಾಂತರ',en:'Bengaluru Rural'},{kn:'ಬೆಂಗಳೂರು ನಗರ',en:'Bengaluru Urban'},{kn:'ಬೀದರ್',en:'Bidar'},{kn:'ಚಾಮರಾಜನಗರ',en:'Chamarajanagar'},{kn:'ಚಿಕ್ಕಬಳ್ಳಾಪುರ',en:'Chikkaballapur'},{kn:'ಚಿಕ್ಕಮಗಳೂರು',en:'Chikkamagaluru'},{kn:'ಚಿತ್ರದುರ್ಗ',en:'Chitradurga'},{kn:'ದಕ್ಷಿಣ ಕನ್ನಡ',en:'Dakshina Kannada'},{kn:'ದಾವಣಗೆರೆ',en:'Davanagere'},{kn:'ಧಾರವಾಡ',en:'Dharwad'},{kn:'ಗದಗ',en:'Gadag'},{kn:'ಹಾಸನ',en:'Hassan'},{kn:'ಹಾವೇರಿ',en:'Haveri'},{kn:'ಕಲಬುರಗಿ',en:'Kalaburagi'},{kn:'ಕೊಡಗು',en:'Kodagu'},{kn:'ಕೋಲಾರ',en:'Kolar'},{kn:'ಕೊಪ್ಪಳ',en:'Koppal'},{kn:'ಮಂಡ್ಯ',en:'Mandya'},{kn:'ಮೈಸೂರು',en:'Mysuru'},{kn:'ರಾಯಚೂರು',en:'Raichur'},{kn:'ರಾಮನಗರ',en:'Ramanagara'},{kn:'ಶಿವಮೊಗ್ಗ',en:'Shivamogga'},{kn:'ತುಮಕೂರು',en:'Tumakuru'},{kn:'ಉಡುಪಿ',en:'Udupi'},{kn:'ಉತ್ತರ ಕನ್ನಡ',en:'Uttara Kannada'},{kn:'ವಿಜಯನಗರ',en:'Vijayanagara'},{kn:'ವಿಜಯಪುರ',en:'Vijayapura'},{kn:'ಯಾದಗಿರಿ',en:'Yadgir'}];
+export default function DistrictsPage(){const{t,lang}=useLanguage();return(<div className="space-y-6 animate-fade-in"><h1 className="section-title">🗺 {t('navDistricts')}</h1><p className="text-[var(--color-text-secondary)] -mt-4">{lang==='kn'?'ಕರ್ನಾಟಕದ ಎಲ್ಲಾ 31 ಜಿಲ್ಲೆಗಳು':'All 31 districts of Karnataka'}</p><div className="grid grid-cols-2 md:grid-cols-4 gap-3">{D.map(d=>(<div key={d.en} className="card p-4 text-center hover:border-[var(--color-primary)] border-2 border-[var(--color-border)] transition-all cursor-pointer"><span className="text-2xl block mb-1">📍</span><h3 className="font-semibold text-sm">{lang==='kn'?d.kn:d.en}</h3></div>))}</div></div>);}

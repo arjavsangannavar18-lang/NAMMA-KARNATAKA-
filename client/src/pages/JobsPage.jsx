@@ -1,14 +1,2 @@
-export default function JobsPage() {
-  return (
-    <div className="space-y-6">
-      <h1 className="section-title">💼 Government Jobs</h1>
-      <div className="card text-center py-10">
-        <p className="text-6xl mb-4">🚧</p>
-        <h2 className="text-xl font-bold mb-2">Coming Soon</h2>
-        <p className="text-gray-500 max-w-md mx-auto">
-          Karnataka government job notifications, KPSC, KEA, and other employment opportunities will be listed here once connected to official sources.
-        </p>
-      </div>
-    </div>
-  );
-}
+import { useLanguage } from '../context/LanguageContext';
+export default function JobsPage(){const{t}=useLanguage();return(<div className="space-y-6 animate-fade-in"><h1 className="section-title">💼 {t('navJobs')}</h1><div className="card text-center py-10"><p className="text-6xl mb-4">🚧</p><h2 className="text-xl font-bold mb-2">{t('comingSoon')}</h2><p className="text-[var(--color-text-secondary)] max-w-md mx-auto">Karnataka government job notifications will be listed once connected to official sources.</p></div></div>);}

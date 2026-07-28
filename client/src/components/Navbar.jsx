@@ -1,41 +1,5 @@
 import { Link } from 'react-router-dom';
-
-const NAV_ITEMS = [
-  { path: '/weather', label: 'ಹವಾಮಾನ', icon: '🌤' },
-  { path: '/transport', label: 'ಸಾರಿಗೆ', icon: '🚌' },
-  { path: '/news', label: 'ಸುದ್ದಿ', icon: '📰' },
-  { path: '/market-prices', label: 'ಮಾರುಕಟ್ಟೆ', icon: '🌾' },
-  { path: '/jobs', label: 'ಉದ್ಯೋಗ', icon: '💼' },
-  { path: '/emergency', label: 'ತುರ್ತು', icon: '🚨' },
-  { path: '/districts', label: 'ಜಿಲ್ಲೆಗಳು', icon: '🗺' },
-];
-
-export default function Navbar({ onMenuToggle }) {
-  return (
-    <header className="bg-[var(--color-primary)] text-white shadow-lg sticky top-0 z-50">
-      <div className="container-app">
-        <div className="flex items-center justify-between h-14 md:h-16">
-          <Link to="/" className="flex items-center gap-2 hover:no-underline">
-            <span className="text-2xl">🏛️</span>
-            <div>
-              <h1 className="text-lg md:text-xl font-bold leading-tight">NAMMA KARNATAKA</h1>
-              <p className="text-xs opacity-80 hidden md:block">ನಮ್ಮ ಕರ್ನಾಟಕ</p>
-            </div>
-          </Link>
-          <nav className="hidden md:flex items-center gap-1">
-            {NAV_ITEMS.map((item) => (
-              <Link key={item.path} to={item.path} className="px-3 py-2 rounded-lg text-sm font-medium hover:bg-white/15 transition-colors">
-                <span className="mr-1">{item.icon}</span>{item.label}
-              </Link>
-            ))}
-          </nav>
-          <button onClick={onMenuToggle} className="md:hidden p-2 rounded-lg hover:bg-white/15 transition-colors" aria-label="Open menu">
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
-          </button>
-        </div>
-      </div>
-    </header>
-  );
-}
+import { useLanguage } from '../context/LanguageContext';
+import { useTheme } from '../context/ThemeContext';
+const N=[{p:'/weather',l:'navWeather',i:'🌤'},{p:'/transport',l:'navTransport',i:'🚌'},{p:'/news',l:'navNews',i:'📰'},{p:'/market-prices',l:'navMarketPrices',i:'🌾'},{p:'/jobs',l:'navJobs',i:'💼'},{p:'/emergency',l:'navEmergency',i:'🚨'},{p:'/districts',l:'navDistricts',i:'🗺'}];
+export default function Navbar({onMenuToggle}){const{t,lang}=useLanguage();const{theme,toggleTheme}=useTheme();return(<header className="bg-[var(--color-primary)] text-white shadow-lg sticky top-0 z-50"><div className="container-app"><div className="flex items-center justify-between h-14 md:h-16"><Link to="/" className="flex items-center gap-2 hover:no-underline shrink-0"><span className="text-2xl">🏛️</span><div className="hidden sm:block"><h1 className="text-base md:text-lg font-bold leading-tight">{t('appName')}</h1><p className="text-[10px] opacity-80">{lang==='kn'?'Namma Karnataka':'ನಮ್ಮ ಕರ್ನಾಟಕ'}</p></div></Link><nav className="hidden md:flex items-center gap-0.5">{N.map(i=>(<Link key={i.p} to={i.p} className="px-2.5 py-2 rounded-lg text-xs font-medium hover:bg-white/15 transition-colors whitespace-nowrap"><span className="mr-1">{i.i}</span>{t(i.l)}</Link>))}</nav><div className="flex items-center gap-1"><button onClick={toggleTheme} className="p-2 rounded-lg hover:bg-white/15 transition-colors" aria-label="Toggle theme">{theme==='dark'?'☀️':'🌙'}</button><Link to="/settings" className="p-2 rounded-lg hover:bg-white/15 transition-colors hidden md:block" aria-label={t('navSettings')}><svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.066 2.573c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.573 1.066c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.066-2.573c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg></Link><button onClick={onMenuToggle} className="md:hidden p-2 rounded-lg hover:bg-white/15 transition-colors" aria-label={t('menu')}><svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16"/></svg></button></div></div></div></header>);}

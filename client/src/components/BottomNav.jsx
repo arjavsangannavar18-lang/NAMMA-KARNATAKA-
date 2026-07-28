@@ -1,29 +1,3 @@
 import { NavLink, useLocation } from 'react-router-dom';
-
-const BOTTOM_NAV_ITEMS = [
-  { path: '/', label: 'Home', icon: '🏠' },
-  { path: '/weather', label: 'Weather', icon: '🌤' },
-  { path: '/transport', label: 'Transport', icon: '🚌' },
-  { path: '/news', label: 'News', icon: '📰' },
-  { path: '/emergency', label: 'Emergency', icon: '🚨' },
-];
-
-export default function BottomNav() {
-  const location = useLocation();
-  return (
-    <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 z-50 safe-area-bottom">
-      <div className="flex items-center justify-around h-14">
-        {BOTTOM_NAV_ITEMS.map((item) => {
-          const isActive = location.pathname === item.path;
-          return (
-            <NavLink key={item.path} to={item.path}
-              className={`flex flex-col items-center justify-center px-3 py-1 min-w-[60px] ${isActive ? 'text-[var(--color-primary)]' : 'text-gray-500'}`}>
-              <span className="text-xl">{item.icon}</span>
-              <span className="text-[10px] font-medium mt-0.5">{item.label}</span>
-            </NavLink>
-          );
-        })}
-      </div>
-    </nav>
-  );
-}
+import { useLanguage } from '../context/LanguageContext';
+export default function BottomNav(){const{t}=useLanguage();const loc=useLocation();const items=[{p:'/',l:'navHome',i:'🏠'},{p:'/weather',l:'navWeather',i:'🌤'},{p:'/transport',l:'navTransport',i:'🚌'},{p:'/news',l:'navNews',i:'📰'},{p:'/settings',l:'navSettings',i:'⚙️'}];return(<nav className="md:hidden fixed bottom-0 left-0 right-0 bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 z-50 safe-area-bottom"><div className="flex items-center justify-around h-14">{items.map(it=>{const a=loc.pathname===it.p;return(<NavLink key={it.p} to={it.p} className={`flex flex-col items-center justify-center px-2 py-1 min-w-[56px] transition-colors duration-150 ${a?'text-[var(--color-primary)]':'text-gray-400 dark:text-gray-500'}`}><span className="text-lg">{it.i}</span><span className="text-[10px] font-medium mt-0.5">{t(it.l)}</span></NavLink>);})}</div></nav>);}

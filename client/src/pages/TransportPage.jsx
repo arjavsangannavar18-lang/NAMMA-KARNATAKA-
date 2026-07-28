@@ -1,14 +1,2 @@
-export default function TransportPage() {
-  return (
-    <div className="space-y-6">
-      <h1 className="section-title">🚌 Public Transport</h1>
-      <div className="card text-center py-10">
-        <p className="text-6xl mb-4">🚧</p>
-        <h2 className="text-xl font-bold mb-2">Coming Soon</h2>
-        <p className="text-gray-500 max-w-md mx-auto">
-          BMTC, KSRTC, and Namma Metro live information will be available here once official data sources are integrated.
-        </p>
-      </div>
-    </div>
-  );
-}
+import { useLanguage } from '../context/LanguageContext';
+export default function TransportPage(){const{t}=useLanguage();return(<div className="space-y-6 animate-fade-in"><h1 className="section-title">🚌 {t('navTransport')}</h1><div className="card text-center py-10"><p className="text-6xl mb-4">🚧</p><h2 className="text-xl font-bold mb-2">{t('comingSoon')}</h2><p className="text-[var(--color-text-secondary)] max-w-md mx-auto">BMTC, KSRTC, and Namma Metro live information will be available once official data sources are integrated.</p></div></div>);}

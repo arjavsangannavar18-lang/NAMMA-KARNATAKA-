@@ -1,14 +1,2 @@
-export default function MarketPricesPage() {
-  return (
-    <div className="space-y-6">
-      <h1 className="section-title">🌾 APMC Market Prices</h1>
-      <div className="card text-center py-10">
-        <p className="text-6xl mb-4">🚧</p>
-        <h2 className="text-xl font-bold mb-2">Coming Soon</h2>
-        <p className="text-gray-500 max-w-md mx-auto">
-          Real-time APMC (Agriculture Produce Market Committee) prices from Karnataka mandis will be displayed here once connected to official data sources.
-        </p>
-      </div>
-    </div>
-  );
-}
+import { useLanguage } from '../context/LanguageContext';
+export default function MarketPricesPage(){const{t}=useLanguage();return(<div className="space-y-6 animate-fade-in"><h1 className="section-title">🌾 {t('navMarketPrices')}</h1><div className="card text-center py-10"><p className="text-6xl mb-4">🚧</p><h2 className="text-xl font-bold mb-2">{t('comingSoon')}</h2><p className="text-[var(--color-text-secondary)] max-w-md mx-auto">APMC market prices from Karnataka mandis will be displayed once connected to official data sources.</p></div></div>);}

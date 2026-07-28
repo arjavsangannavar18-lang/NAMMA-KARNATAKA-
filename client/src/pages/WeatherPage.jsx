@@ -1,34 +1,4 @@
 import { useQuery } from '@tanstack/react-query';
 import { apiService } from '../services/api';
-
-export default function WeatherPage() {
-  const { data: weather, isLoading, error } = useQuery({
-    queryKey: ['weather', 'bengaluru'],
-    queryFn: () => apiService.getWeather('bengaluru'),
-    staleTime: 10 * 60 * 1000,
-  });
-
-  return (
-    <div className="space-y-6">
-      <h1 className="section-title">🌤 Weather</h1>
-      {isLoading && <div className="flex justify-center py-10"><div className="loading-spinner" /></div>}
-      {error && <div className="card text-center py-8"><p className="text-red-500">Unable to fetch weather data.</p></div>}
-      {weather && (
-        <div className="card">
-          <div className="text-center mb-6">
-            <p className="text-6xl mb-2">{weather.icon || '☀️'}</p>
-            <p className="text-4xl font-bold">{weather.temperature}°C</p>
-            <p className="text-lg text-gray-600">{weather.condition}</p>
-            <p className="text-sm text-gray-500 mt-1">{weather.location}</p>
-          </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
-            <div className="p-3 bg-gray-50 rounded-lg"><p className="text-sm text-gray-500">Humidity</p><p className="text-xl font-bold">{weather.humidity}%</p></div>
-            <div className="p-3 bg-gray-50 rounded-lg"><p className="text-sm text-gray-500">Wind</p><p className="text-xl font-bold">{weather.windSpeed} km/h</p></div>
-            <div className="p-3 bg-gray-50 rounded-lg"><p className="text-sm text-gray-500">Feels Like</p><p className="text-xl font-bold">{weather.feelsLike || weather.temperature}°C</p></div>
-            <div className="p-3 bg-gray-50 rounded-lg"><p className="text-sm text-gray-500">Visibility</p><p className="text-xl font-bold">{weather.visibility || 'N/A'} km</p></div>
-          </div>
-        </div>
-      )}
-    </div>
-  );
-}
+import { useLanguage } from '../context/LanguageContext';
+export default function WeatherPage(){const{t}=useLanguage();const{data:w,isLoading:l,error:e}=useQuery({queryKey:['weather','bengaluru'],queryFn:()=>apiService.getWeather('bengaluru'),staleTime:600000,retry:1});return(<div className="space-y-6 animate-fade-in"><h1 className="section-title">🌤 {t('navWeather')}</h1>{l&&<div className="flex justify-center py-10"><div className="loading-spinner"/></div>}{e&&<div className="card text-center py-8"><p className="text-[var(--color-error)]">{t('errorText')}</p></div>}{w&&(<div className="card"><div className="text-center mb-6"><p className="text-6xl mb-2">{w.icon||'☀️'}</p><p className="text-4xl font-bold">{w.temperature}°C</p><p className="text-lg text-[var(--color-text-secondary)]">{w.condition}</p><p className="text-sm text-[var(--color-text-muted)] mt-1">{w.location}</p></div><div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center"><div className="p-3 bg-[var(--color-bg-secondary)] rounded-xl"><p className="text-xs text-[var(--color-text-secondary)]">{t('humidity')}</p><p className="text-xl font-bold">{w.humidity}%</p></div><div className="p-3 bg-[var(--color-bg-secondary)] rounded-xl"><p className="text-xs text-[var(--color-text-secondary)]">{t('wind')}</p><p className="text-xl font-bold">{w.windSpeed} km/h</p></div><div className="p-3 bg-[var(--color-bg-secondary)] rounded-xl"><p className="text-xs text-[var(--color-text-secondary)]">{t('feelsLike')}</p><p className="text-xl font-bold">{w.feelsLike||w.temperature}°C</p></div><div className="p-3 bg-[var(--color-bg-secondary)] rounded-xl"><p className="text-xs text-[var(--color-text-secondary)]">{t('visibility')}</p><p className="text-xl font-bold">{w.visibility||'—'} km</p></div></div></div>)}</div>);}
