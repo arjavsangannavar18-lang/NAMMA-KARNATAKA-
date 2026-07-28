@@ -1,16 +1,1 @@
-import { Router } from 'express';
-import { getWeatherByCity, getWeatherForKarnataka } from '../services/weatherService.js';
-
-const router = Router();
-
-router.get('/:city', async (req, res, next) => {
-  try { const { city } = req.params; const data = await getWeatherByCity(city); res.json(data); }
-  catch (err) { next(err); }
-});
-
-router.get('/', async (req, res, next) => {
-  try { const data = await getWeatherForKarnataka(); res.json(data); }
-  catch (err) { next(err); }
-});
-
-export default router;
+import{Router}from'express';import{getWeatherByCity,getWeatherByCoords,getWeatherForKarnataka,getForecast,getForecastByCoords,searchLocations,reverseGeocode,getAirPollution,getWeatherAlerts,getUVIndex}from'../services/weatherService.js';const r=Router();r.get('/search',async(req,res,next)=>{try{const{q}=req.query;if(!q)return res.json([]);res.json(await searchLocations(q))}catch(e){next(e)}});r.get('/reverse',async(req,res,next)=>{try{const{lat,lon}=req.query;if(!lat||!lon)return res.status(400).json({error:'lat and lon required'});res.json(await reverseGeocode(+lat,+lon))}catch(e){next(e)}});r.get('/coords',async(req,res,next)=>{try{const{lat,lon}=req.query;if(!lat||!lon)return res.status(400).json({error:'lat and lon required'});res.json(await getWeatherByCoords(+lat,+lon))}catch(e){next(e)}});r.get('/forecast/:city',async(req,res,next)=>{try{res.json(await getForecast(req.params.city))}catch(e){next(e)}});r.get('/forecast-coords',async(req,res,next)=>{try{const{lat,lon}=req.query;if(!lat||!lon)return res.status(400).json({error:'lat and lon required'});res.json(await getForecastByCoords(+lat,+lon))}catch(e){next(e)}});r.get('/aqi',async(req,res,next)=>{try{const{lat,lon}=req.query;if(!lat||!lon)return res.status(400).json({error:'lat and lon required'});res.json(await getAirPollution(+lat,+lon))}catch(e){next(e)}});r.get('/uv',async(req,res,next)=>{try{const{lat,lon}=req.query;if(!lat||!lon)return res.status(400).json({error:'lat and lon required'});res.json(await getUVIndex(+lat,+lon))}catch(e){next(e)}});r.get('/alerts',async(req,res,next)=>{try{const{lat,lon}=req.query;if(!lat||!lon)return res.status(400).json({error:'lat and lon required'});res.json(await getWeatherAlerts(+lat,+lon))}catch(e){next(e)}});r.get('/:city',async(req,res,next)=>{try{res.json(await getWeatherByCity(req.params.city))}catch(e){next(e)}});r.get('/',async(req,res,next)=>{try{res.json(await getWeatherForKarnataka())}catch(e){next(e)}});export default r;
