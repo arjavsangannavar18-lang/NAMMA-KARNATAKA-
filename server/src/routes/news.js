@@ -1,11 +1,1 @@
-import { Router } from 'express';
-import { fetchKarnatakaNews } from '../services/newsService.js';
-
-const router = Router();
-
-router.get('/', async (req, res, next) => {
-  try { const { category } = req.query; const data = await fetchKarnatakaNews(category); res.json(data); }
-  catch (err) { next(err); }
-});
-
-export default router;
+import{Router}from'express';import{CATEGORIES,fetchNewsByCategory,searchNews,fetchBreakingNews,fetchTrendingNews,fetchDistrictNews,fetchAllKarnatakaNews}from'../services/newsService.js';const r=Router();r.get('/categories',(_,res)=>res.json(CATEGORIES));r.get('/breaking',async(req,res,next)=>{try{res.json(await fetchBreakingNews())}catch(e){next(e)}});r.get('/trending',async(req,res,next)=>{try{res.json(await fetchTrendingNews())}catch(e){next(e)}});r.get('/search',async(req,res,next)=>{try{const{q}=req.query;if(!q)return res.json([]);res.json(await searchNews(q))}catch(e){next(e)}});r.get('/district/:name',async(req,res,next)=>{try{res.json(await fetchDistrictNews(req.params.name))}catch(e){next(e)}});r.get('/:category',async(req,res,next)=>{try{const{category}=req.params;if(category==='all'||category==='karnataka')res.json(await fetchAllKarnatakaNews());else res.json(await fetchNewsByCategory(category))}catch(e){next(e)}});r.get('/',async(req,res,next)=>{try{const{category}=req.query;if(category)res.json(await fetchNewsByCategory(category));else res.json(await fetchAllKarnatakaNews())}catch(e){next(e)}});export default r;
