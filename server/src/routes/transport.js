@@ -1,15 +1,1 @@
-import { Router } from 'express';
-const router = Router();
-
-router.get('/', async (req, res, next) => {
-  try {
-    const { type } = req.query;
-    res.json({
-      message: 'Transport data will be available once official BMTC/KSRTC/Metro APIs are integrated.',
-      type: type || 'all',
-      sources: { bmtc: 'https://bmtc.karnataka.gov.in', ksrtc: 'https://ksrtc.in', metro: 'https://english.bmrc.co.in' },
-    });
-  } catch (err) { next(err); }
-});
-
-export default router;
+import{Router}from'express';import{TRANSPORT_CORPS,METRO_STATIONS,METRO_LINES,MAJOR_BUS_STATIONS,searchTransport}from'../services/transportService.js';const r=Router();r.get('/',(_,res)=>res.json(TRANSPORT_CORPS));r.get('/search',(req,res)=>{res.json(searchTransport(req.query.q||''))});r.get('/metro',(_,res)=>{res.json({lines:METRO_LINES,stations:METRO_STATIONS})});r.get('/metro/:line',(req,res)=>{const l=METRO_LINES.find(x=>x.id===req.params.line);if(!l)return res.status(404).json({error:'Not found'});res.json({...l,stations:METRO_STATIONS.filter(s=>s.line===req.params.line).sort((a,b)=>a.order-b.order)})});r.get('/stations',(req,res)=>{const{lat,lon}=req.query;if(lat&&lon){const la=+lat,lo=+lon;const n=[...MAJOR_BUS_STATIONS,...METRO_STATIONS].map(s=>({...s,distance:h(la,lo,s.lat,s.lon)})).sort((a,b)=>a.distance-b.distance).slice(0,10);return res.json(n)}res.json(MAJOR_BUS_STATIONS)});r.get('/corp/:id',(req,res)=>{const c=TRANSPORT_CORPS.find(x=>x.id===req.params.id);c?res.json(c):res.status(404).json({error:'Not found'})});function h(lat1,lon1,lat2,lon2){const R=6371,dLat=(lat2-lat1)*Math.PI/180,dLon=(lon2-lon1)*Math.PI/180;return Math.round(R*2*Math.atan2(Math.sqrt(Math.sin(dLat/2)**2+Math.cos(lat1*Math.PI/180)*Math.cos(lat2*Math.PI/180)*Math.sin(dLon/2)**2),Math.sqrt(1-Math.sin(dLat/2)**2+Math.cos(lat1*Math.PI/180)*Math.cos(lat2*Math.PI/180)*Math.sin(dLon/2)**2))*10)/10}export default r;
