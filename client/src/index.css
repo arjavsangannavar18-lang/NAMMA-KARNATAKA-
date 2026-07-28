@@ -1,0 +1,58 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-primary: #E65100;
+  --color-primary-dark: #BF360C;
+  --color-primary-light: #FFB74D;
+  --color-accent: #FF6F00;
+  --color-bg: #FFF8E1;
+  --color-surface: #FFFFFF;
+  --color-text: #212121;
+  --color-text-secondary: #757575;
+  --color-error: #D32F2F;
+  --color-success: #388E3C;
+  --color-info: #1976D2;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { font-size: 16px; scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
+body {
+  font-family: 'Noto Sans Kannada', 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  line-height: 1.6;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+#root { min-height: 100vh; display: flex; flex-direction: column; }
+
+a { color: var(--color-primary); text-decoration: none; }
+a:hover { text-decoration: underline; }
+img { max-width: 100%; height: auto; }
+button { cursor: pointer; font-family: inherit; }
+
+:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 2px; }
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #f1f1f1; }
+::-webkit-scrollbar-thumb { background: #888; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #555; }
+
+@layer components {
+  .container-app { @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8; }
+  .btn-primary {
+    @apply bg-[var(--color-primary)] text-white px-6 py-2.5 rounded-lg font-medium
+           hover:bg-[var(--color-primary-dark)] transition-colors duration-200
+           focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] focus:ring-offset-2;
+  }
+  .card { @apply bg-white rounded-xl shadow-md p-6 hover:shadow-lg transition-shadow duration-200; }
+  .section-title { @apply text-2xl font-bold text-[var(--color-text)] mb-4; }
+  .loading-spinner {
+    @apply animate-spin rounded-full h-8 w-8 border-4 border-[var(--color-primary-light)] border-t-[var(--color-primary)];
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "name": "namma-karnataka",
+  "version": "1.0.0",
+  "description": "A real public utility platform for the people of Karnataka",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently \"npm run dev:client\" \"npm run dev:server\"",
+    "dev:client": "cd client && npm run dev",
+    "dev:server": "cd server && npm run dev",
+    "build": "cd client && npm run build && cd ../server && npm run build",
+    "start": "cd server && npm start",
+    "lint": "cd client && npm run lint && cd ../server && npm run lint",
+    "test": "cd client && npm test && cd ../server && npm test"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/arjavsangannavar18-lang/NAMMA-KARNATAKA-.git"
+  },
+  "author": "Bheemu Sangannavar",
+  "license": "ISC"
+}
