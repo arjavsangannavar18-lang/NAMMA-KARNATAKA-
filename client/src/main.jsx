@@ -1,1 +1,38 @@
-import React from 'react';import ReactDOM from 'react-dom/client';import { BrowserRouter } from 'react-router-dom';import { QueryClient, QueryClientProvider } from '@tanstack/react-query';import { LanguageProvider } from './context/LanguageContext';import { ThemeProvider } from './context/ThemeContext';import { NotificationProvider } from './context/NotificationContext';import App from './App';import './index.css';const queryClient=new QueryClient({defaultOptions:{queries:{staleTime:5*60*1000,retry:2,refetchOnWindowFocus:false}}});ReactDOM.createRoot(document.getElementById('root')).render(<React.StrictMode><ThemeProvider><LanguageProvider><NotificationProvider><QueryClientProvider client={queryClient}><BrowserRouter><App/></BrowserRouter></QueryClientProvider></NotificationProvider></LanguageProvider></ThemeProvider></React.StrictMode>);
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import { BrowserRouter } from 'react-router-dom';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { LanguageProvider } from './context/LanguageContext';
+import { ThemeProvider } from './context/ThemeContext';
+import { NotificationProvider } from './context/NotificationContext';
+import ErrorBoundary from './components/ErrorBoundary';
+import App from './App';
+import './index.css';
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 5 * 60 * 1000,
+      retry: 2,
+      refetchOnWindowFocus: false,
+    },
+  },
+});
+
+ReactDOM.createRoot(document.getElementById('root')).render(
+  <React.StrictMode>
+    <ThemeProvider>
+      <LanguageProvider>
+        <QueryClientProvider client={queryClient}>
+          <BrowserRouter>
+            <NotificationProvider>
+              <ErrorBoundary>
+                <App />
+              </ErrorBoundary>
+            </NotificationProvider>
+          </BrowserRouter>
+        </QueryClientProvider>
+      </LanguageProvider>
+    </ThemeProvider>
+  </React.StrictMode>
+);
