@@ -1,13 +1,1 @@
-import { Router } from 'express';
-const router = Router();
-
-router.get('/', async (req, res, next) => {
-  try {
-    res.json({
-      message: 'Government job notifications will be available once official sources are integrated.',
-      sources: { kpsc: 'https://kpsc.kar.nic.in', kea: 'https://cetonline.karnataka.gov.in/kea', employment: 'https://emp.kar.nic.in' },
-    });
-  } catch (err) { next(err); }
-});
-
-export default router;
+import{Router}from'express';import{CATEGORIES,QUALIFICATIONS,JOB_TYPES,RECRUITMENT_SOURCES,searchJobs}from'../services/jobsService.js';const r=Router();r.get('/categories',(_,res)=>res.json(CATEGORIES));r.get('/qualifications',(_,res)=>res.json(QUALIFICATIONS));r.get('/types',(_,res)=>res.json(JOB_TYPES));r.get('/sources',(_,res)=>res.json(RECRUITMENT_SOURCES));r.get('/search',(req,res)=>res.json(searchJobs(req.query.q||'')));r.get('/',(_,res)=>res.json({categories:CATEGORIES,qualifications:QUALIFICATIONS,jobTypes:JOB_TYPES,sources:RECRUITMENT_SOURCES,totalSources:RECRUITMENT_SOURCES.length,note:'Real-time job listings require official recruitment APIs.'}));export default r;
