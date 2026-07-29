@@ -1,11 +1,1 @@
-import { Router } from 'express';
-import { getEmergencyContacts } from '../services/emergencyService.js';
-
-const router = Router();
-
-router.get('/', async (req, res, next) => {
-  try { const data = getEmergencyContacts(); res.json(data); }
-  catch (err) { next(err); }
-});
-
-export default router;
+import{Router}from'express';import{SOS_ACTIONS,EMERGENCY_CONTACTS,EMERGENCY_CATEGORIES,HOSPITALS,POLICE_STATIONS,FIRE_STATIONS,BLOOD_BANKS,getNearbyEmergency}from'../services/emergencyService.js';const r=Router();r.get('/sos',(_,res)=>res.json(SOS_ACTIONS));r.get('/categories',(_,res)=>res.json(EMERGENCY_CATEGORIES));r.get('/contacts',(_,res)=>res.json(EMERGENCY_CONTACTS));r.get('/hospitals',(_,res)=>res.json(HOSPITALS));r.get('/police',(_,res)=>res.json(POLICE_STATIONS));r.get('/fire',(_,res)=>res.json(FIRE_STATIONS));r.get('/blood-banks',(_,res)=>res.json(BLOOD_BANKS));r.get('/nearby',(req,res)=>{const{lat,lon}=req.query;if(!lat||!lon)return res.json([]);res.json(getNearbyEmergency(+lat,+lon))});r.get('/',(_,res)=>res.json({sos:SOS_ACTIONS,contacts:EMERGENCY_CONTACTS,categories:EMERGENCY_CATEGORIES,counts:{hospitals:HOSPITALS.length,police:POLICE_STATIONS.length,fire:FIRE_STATIONS.length,bloodBanks:BLOOD_BANKS.length}}));export default r;
