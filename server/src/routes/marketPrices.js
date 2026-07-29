@@ -1,15 +1,1 @@
-import { Router } from 'express';
-const router = Router();
-
-router.get('/', async (req, res, next) => {
-  try {
-    const { commodity } = req.query;
-    res.json({
-      message: 'APMC market prices will be available once official data sources are integrated.',
-      commodity: commodity || 'all',
-      sources: { apmc: 'https://apmc.karnataka.gov.in', agmarknet: 'https://agmarknet.gov.in' },
-    });
-  } catch (err) { next(err); }
-});
-
-export default router;
+import{Router}from'express';import{CATEGORIES,COMMODITIES,APMC_MARKETS,getMetalPrices,getFuelPrices,getDairyPrices,getNearbyMarkets}from'../services/marketService.js';const r=Router();r.get('/categories',(_,res)=>res.json(CATEGORIES));r.get('/commodities',(req,res)=>{const c=req.query.category;res.json(c&&COMMODITIES[c]?COMMODITIES[c]:COMMODITIES)});r.get('/markets',(_,res)=>res.json(APMC_MARKETS));r.get('/metals',async(req,res,next)=>{try{res.json(await getMetalPrices())}catch(e){next(e)}});r.get('/fuel',async(req,res,next)=>{try{res.json(await getFuelPrices())}catch(e){next(e)}});r.get('/dairy',async(req,res,next)=>{try{res.json(await getDairyPrices())}catch(e){next(e)}});r.get('/nearby',(req,res)=>{res.json(getNearbyMarkets(+req.query.lat,+req.query.lon))});r.get('/',(_,res)=>res.json({categories:CATEGORIES,note:'Karnataka APMC prices'}));export default r;
