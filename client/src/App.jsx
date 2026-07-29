@@ -7,6 +7,7 @@ import NewsPage from './pages/NewsPage';
 import MarketPricesPage from './pages/MarketPricesPage';
 import JobsPage from './pages/JobsPage';
 import EducationPage from './pages/EducationPage';
+import FarmerPage from './pages/FarmerPage';
 import EmergencyPage from './pages/EmergencyPage';
 import DistrictsPage from './pages/DistrictsPage';
 import SettingsPage from './pages/SettingsPage';
@@ -23,6 +24,7 @@ function App() {
         <Route path="market-prices" element={<MarketPricesPage />} />
         <Route path="jobs" element={<JobsPage />} />
         <Route path="education" element={<EducationPage />} />
+        <Route path="farmer" element={<FarmerPage />} />
         <Route path="emergency" element={<EmergencyPage />} />
         <Route path="districts" element={<DistrictsPage />} />
         <Route path="settings" element={<SettingsPage />} />
