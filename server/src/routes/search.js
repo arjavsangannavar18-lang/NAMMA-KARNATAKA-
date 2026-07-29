@@ -1,0 +1,1 @@
+import{Router}from'express';import{searchAll,QUICK_SEARCHES}from'../services/searchService.js';const r=Router();r.get('/',(req,res)=>res.json(searchAll(req.query.q||'')));r.get('/quick',(_,res)=>res.json(QUICK_SEARCHES));export default r;
