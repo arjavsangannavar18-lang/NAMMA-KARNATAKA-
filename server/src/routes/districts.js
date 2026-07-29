@@ -1,16 +1,1 @@
-import { Router } from 'express';
-import { getDistrictList, getDistrictInfo } from '../services/districtService.js';
-
-const router = Router();
-
-router.get('/', async (req, res, next) => {
-  try { const data = getDistrictList(); res.json(data); }
-  catch (err) { next(err); }
-});
-
-router.get('/:name', async (req, res, next) => {
-  try { const { name } = req.params; const data = await getDistrictInfo(name); res.json(data); }
-  catch (err) { next(err); }
-});
-
-export default router;
+import{Router}from'express';import{getDistrictList,getDistrictInfo,getNearbyDistrict,searchDistricts}from'../services/districtService.js';const r=Router();r.get('/',(_,res)=>res.json(getDistrictList()));r.get('/nearby',(req,res)=>{const{lat,lon}=req.query;res.json(lat&&lon?getNearbyDistrict(+lat,+lon):[])});r.get('/search',(req,res)=>res.json(searchDistricts(req.query.q||'')));r.get('/:name',async(req,res,next)=>{try{res.json(getDistrictInfo(req.params.name))}catch(e){next(e)}});export default r;
