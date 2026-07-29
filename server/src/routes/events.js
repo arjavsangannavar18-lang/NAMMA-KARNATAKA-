@@ -1,0 +1,1 @@
+import{Router}from'express';import{EVENTS_CATEGORIES,KARNATAKA_FESTIVALS}from'../services/eventsService.js';const r=Router();r.get('/categories',(_,res)=>res.json(EVENTS_CATEGORIES));r.get('/festivals-list',(_,res)=>res.json(KARNATAKA_FESTIVALS));r.get('/',(_,res)=>res.json({festivals:KARNATAKA_FESTIVALS.length}));export default r;
